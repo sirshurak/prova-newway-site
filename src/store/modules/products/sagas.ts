@@ -7,7 +7,6 @@ import { loadProductsSuccess, loadProductsFailure, loadProductsRequest } from '.
 export function* loadProducts({payload}: ActionType<typeof loadProductsRequest>){
     try {        
         const { data } =  yield call(api.get, `/product?limit=${payload.limit}&offset=${payload.offset}`);
-        console.log(data);
         yield put(loadProductsSuccess(data));
     }
     catch(error){

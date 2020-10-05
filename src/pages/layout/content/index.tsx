@@ -1,10 +1,16 @@
 import React from 'react';
 import { Container } from './styles';
-import ContentComponent from '../../../components/layout/content';
+import {Cell} from 'styled-css-grid'
 
-const Content = () => {
+const Content: React.FC<{}> = ({ children }) => {
     return (
-        <Container><ContentComponent /></Container>
+        <Container>
+            <main>
+                <div id="content">
+                    { children }
+                </div>
+            </main>
+        </Container>
     )
 }
 

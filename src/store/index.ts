@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, Store } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import reducers from './ducks/rootReducers';
-import sagas from './ducks/rootSagas';
+import reducers from './modules/rootReducers';
+import sagas from './modules/rootSagas';
  
 export interface ApplicationState<P = {}> {
     payloads: P

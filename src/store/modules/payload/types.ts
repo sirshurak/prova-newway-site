@@ -15,9 +15,6 @@ export enum _types {
  export interface Payload {
  }
 
- export interface Error {
-    message: string
-}
 
  /**
   * State Type
@@ -25,11 +22,11 @@ export enum _types {
 
 export interface PayloadState {
     readonly loading: boolean 
-    readonly error: boolean 
-    readonly userId: String
+    readonly isLogged: boolean
+    readonly errors: {[key: string]: string} | null
     readonly userToken: String
 }
 
-export interface PayloadDataState<P extends Payload = {}> extends PayloadState {
-      readonly data: P[]
+export interface PayloadDataState<P> extends PayloadState   {
+      readonly data: P[] 
 }

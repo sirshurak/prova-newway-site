@@ -1,10 +1,12 @@
 import React from 'react';
 import { Container } from './styles';
-import ProductDetailsComponent from '../../../components/products/details';
+import ProductDetailsComponent from '../../../components/products/details/index.jsx';
+import AuthContext from '../../../contexts/auth';
 
-const Product = () => {
+const Product = (values: any) => {
+    const {user, userToken, isLogged} = React.useContext(AuthContext)
     return (
-        <Container><ProductDetailsComponent/></Container>
+        <Container><ProductDetailsComponent id={values.match.params.id} user={user} userToken={userToken} isLogged={isLogged}/></Container>
     )
 }
 

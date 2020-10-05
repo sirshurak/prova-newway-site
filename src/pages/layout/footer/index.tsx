@@ -1,10 +1,17 @@
 import React from 'react';
 import { Container } from './styles';
-import FooterComponent from '../../../components/layout/footer';
+import {Cell} from 'styled-css-grid'
 
-const Footer = () => {
+const Footer: React.FC<{}> = ({ children }) => {
     return (
-        <Container><FooterComponent /></Container>
+        <Container>
+            <footer>
+                <div id="footer">
+                    <h1>Footer</h1>
+                    {children}
+                </div>
+            </footer>
+        </Container>
     )
 }
 

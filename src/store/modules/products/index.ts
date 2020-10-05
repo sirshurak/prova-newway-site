@@ -1,11 +1,12 @@
 import { Reducer } from 'redux';
-import { ProductState, _types } from './types'
+import { ProductState, _types } from './types';
+import {PAYLOAD_INITIAL_STATE} from '../payload'
 
 const INITIAL_STATE: ProductState = {
     data: [],
     loading: false,
-    error: false,
-    userId: "",
+    isLogged: false,
+    errors: {},
     userToken: "",
     limit: 10,
     offset: 0,
@@ -17,9 +18,9 @@ const reducer: Reducer<ProductState> = (state = INITIAL_STATE, action) => {
         case _types.LOAD_PRODUCTS_REQUEST:
             return { ...state, loading: true, userToken: action.payload.userToken};
         case _types.LOAD_PRODUCTS_SUCCESS:
-            return { ...state, loading: false, errors: [], data: action.payload.data.data, total: action.payload.data.total, offset: action.payload.data.offset, limit: action.payload.data.limit};
+            return { ...state, loading: false, errors: {}, data: action.payload.data.data, total: action.payload.data.total, offset: action.payload.data.offset, limit: action.payload.data.limit};
         case _types.LOAD_PRODUCTS_FAILURE:
-            return { ...state, loading: false, errors: [{message: "Erro na requisição do serviço."}], data: []};
+            return { ...state, loading: false, errors: {message: "Erro na requisição do serviço."}, data: []};
         default:
             return state; 
     }
