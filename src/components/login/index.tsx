@@ -124,13 +124,14 @@ class LoginComponent extends Component<any,AuthState> {
         if (!isLogged)
             return (
                 <div id="login-form">
-                    <Form onSubmit={this.handleLoginSubmit}>
+                    <Form onSubmit={this.handleLoginSubmit} className={"login-form-send"}>
                         <FormControl
                             label="Email"
                             type="email"
                             value={this.state.user.email}
                             handleChange={this.handleChange}
                             error={this.state.errors?.username}
+                            placeholder="Email"
                         />
 
                         <FormControl
@@ -139,16 +140,18 @@ class LoginComponent extends Component<any,AuthState> {
                             value={this.state.user.password}
                             handleChange={this.handleChange}
                             error={this.state.errors?.password}
+                            placeholder="senha"
                         />
                         {this.props.errors?.message ?? <><br/><FormFeedback>{this.props.errors?.message}</FormFeedback></>}
                         <Button color="primary">Login</Button>
                     </Form>
-                    <Button color="secondary" onClick={this.handleNewRandomUserClick}>Novo usuário aleatório</Button>
+                    <Button color="secundary" onClick={this.handleNewRandomUserClick}>Novo usuário aleatório</Button>
+                    {this.props.children}
                 </div>
             )
         else
             return (
-                <div id={`user-${this.props.user.id}`}>
+                <div id={`user-${this.props.user.id}`} className="info-usuario">
                     <p>Olá {this.props.user.name}, você já está logado.</p>
                     <p>Última visita em: {this.props.user.lastVisit?.toString()}</p>
                     <Button onClick={this.handleLogoutClick} color="primary">Sair</Button> 

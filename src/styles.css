@@ -36,6 +36,11 @@ div #footer{
     flex-wrap: wrap;
 }
 
+div #footer > h3 {
+    color: #636363;
+    margin-left: 40px;
+}
+
 .menu {
     display: flex;
 }
@@ -55,6 +60,34 @@ div #footer{
     margin: 0 auto;
     min-height: 1000px;
     margin-top: 15px;
+}
+
+button.btn.btn-primary {
+    border: 2px solid #a226ff;
+    background-color: #9831FE ;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: #fff;
+
+    -webkit-transition: font-size 1s, -webkit-transform 1s;
+    transition: font-size 1s, transform 1s;
+}
+
+button.btn.btn-primary:hover,
+button.btn.btn-primary:focus {
+    font-size: 1.5rem;
+}
+
+button.btn.btn-secundary {
+    border: 2px solid #a226ff;
+    background-color: #fff ;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    padding: 5px 10px;
+    color: #9831FE;
+    cursor: pointer;
 }
 
 /**
@@ -193,6 +226,7 @@ div#products-pagination > .products-total {
     border: 2px solid #a226ff;
     color: #fff;
 }
+
 .pagination > li {
     display: flex;
     padding: 2px;
@@ -220,6 +254,7 @@ div#products-pagination > .products-total {
     background-color:#dddddd ;
     border: 2px solid #dddddd;
     color: #fff;
+    cursor: unset;
 }
 .pagination > li > a, 
 .pagination > li > span {
@@ -242,14 +277,78 @@ div#products-pagination > .products-total {
 */
 
 div#login {
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    align-self: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 10px;
+    margin: 0 auto;
+    width: 100%;
 }
 
+
 div#login > div#login-form,
-div#login > div#login-form > form {
-    align-content: center;
+div#login > div.info-usuario {
+    grid-column: 2;
+    background: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    display: grid;
+}
+
+div#login > div#login-form > img {
+    max-width: 200px;
+    grid-row: 1;
+    margin: 0 auto;
+}
+
+div#login > div#login-form > .login-form-send {
+    display: grid;
+}
+
+div#login > div#login-form > form > .form-group {    
+    display: flex;
+}
+
+div#login > div#login-form > form > .form-group > label { 
+    color: #9831FE;
+    display: none;
+}
+
+div#login > div#login-form > form > button,
+div#login > div#login-form > button {
+    margin: 10px;
+}
+
+div#login > div#login-form > form > .form-group > input{
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    height:40px;
+    border: 1px solid #ccc;;
+    background: #fafafa;
+    transition:0.2s ease-in-out;
+    margin: 0px 10px;
+}
+  
+div#login > div#login-form > form > .form-group > input:focus{
+    outline: 0;
+    background: #eee;
+}
+
+div#login > div#login-form > form > .form-group > input[type="email"]{
+    border-radius: 5px 5px 0 0;
+    text-transform: lowercase;
+}
+
+div#login > div#login-form > form > .form-group > input[type="password"]{
+    border-radius: 0 0 5px 5px;
+    border-top: 0;
+}
+
+@media (max-width: 762px) {
+    div#login {
+        display: block;
+        width: inherit;
+        margin: 0px;
+    }
 }

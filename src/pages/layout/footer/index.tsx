@@ -7,7 +7,7 @@ const Footer: React.FC<{}> = ({ children }) => {
         <Container>
             <footer>
                 <div id="footer">
-                    <h1>Footer</h1>
+                    <h3>Prova solucionada por Vinicius Tonelli</h3>
                     {children}
                 </div>
             </footer>
