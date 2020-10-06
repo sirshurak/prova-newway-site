@@ -6,7 +6,11 @@ import AuthContext from '../../../contexts/auth';
 const Login = () => {
     const props = React.useContext(AuthContext);
     return (
-        <Container><LoginComponent {...props}/></Container>
+        <Container>
+            <div id="login">
+                <LoginComponent {...props}/>
+            </div>
+        </Container>
     )
 }
 

@@ -11,8 +11,8 @@ const Header: React.FC<{}> = ({ children }) => {
         <Container>            
             <header>
                 <div id="header">
-                    <img width={207} height={45} src={"https://www.gruponewway.com.br/wp-content/uploads/2019/06/logotipo-newway-branco.png"} className={"attachment-large size-large"}/>
                     <Router history={history}>
+                        <Link to="/"><img width={207} height={45} src={"https://www.gruponewway.com.br/wp-content/uploads/2019/06/logotipo-newway-branco.png"} className={"attachment-large size-large"}/></Link>
                         <ul className="menu">
                             <li><Link to="/">Home</Link></li>
                             <li><Link to="/products">Produtos</Link></li>

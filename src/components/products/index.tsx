@@ -7,6 +7,7 @@ import * as myprops from '../interfaces/product';
 import * as actions from '../../store/modules/products/actions';
 import ReactPaginate from 'react-paginate';
 import { Link } from 'react-router-dom';
+import {formatarReal} from '../../utils/functions';
 
 type Props = props.StateProps & myprops.ProductsProps & myprops.ProductsDispatchProps
 
@@ -18,28 +19,33 @@ class ProductsComponent extends Component<Props> {
     }
     render() {        
         const { loadProductsRequest, data, total, limit, offset } = this.props;
-        console.log(limit);
         return (
             <div id="products">
-                <p>Products | total: {total}</p>
                 <ul id="products-list">{data ? data.map(product => (
                     <li key={product._id}>
                         <Link to={`/products/${product._id}`}>
                             <img src={product.images ? product.images[0] : "http://whatcommasoniclodge.org/wp-content/uploads/2016/12/112815904-stock-vector-no-image-available-icon-flat-vector-illustration.jpg"}/>
                             <div className="product-content">                                
-                                <span className={"product-price"}>{product.price}</span>
+                                <span className={"product-price"}>{formatarReal(product.price)}</span>
                                 <p className={"product-title"}>{product.name}</p>
                             </div>
+                            <p className={"product-avaliations"}>{product.avaliations?.length ? (`${product.avaliations.length} ${product.avaliations.length > 1 ? "avaliações" : "avaliação"}`) : "nenhuma avaliação"}</p>
                         </Link>
                     </li>)) : <li/>}
                 </ul>
-                <ReactPaginate 
-                    pageCount={Math.ceil(total/limit)} 
-                    pageRangeDisplayed={5} 
-                    marginPagesDisplayed={10} 
-                    forcePage={Math.ceil(offset/limit)}
-                    onPageChange={({selected}) => {loadProductsRequest(limit*selected,limit)}}
-                />
+                <div id="products-pagination">
+                <p className="products-total">{total} produto(s)</p>
+                    <ReactPaginate 
+                        pageCount={Math.ceil(total/limit)} 
+                        pageRangeDisplayed={5} 
+                        marginPagesDisplayed={10} 
+                        forcePage={Math.ceil(offset/limit)}
+                        onPageChange={({selected}) => {loadProductsRequest(limit*selected,limit)}}
+                        containerClassName={"pagination"}
+                        activeClassName={"active"}
+                        pageClassName={"page"}
+                    />
+                </div>
             </div>
         )
     }

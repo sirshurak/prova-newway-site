@@ -123,41 +123,35 @@ class LoginComponent extends Component<any,AuthState> {
         const { isLogged } = this.props;
         if (!isLogged)
             return (
-                <Row>
-                    <Col md={4}>
-                        <Form onSubmit={this.handleLoginSubmit}>
-                            <FormControl
-                                label="Email"
-                                type="email"
-                                value={this.state.user.email}
-                                handleChange={this.handleChange}
-                                error={this.state.errors?.username}
-                            />
+                <div id="login-form">
+                    <Form onSubmit={this.handleLoginSubmit}>
+                        <FormControl
+                            label="Email"
+                            type="email"
+                            value={this.state.user.email}
+                            handleChange={this.handleChange}
+                            error={this.state.errors?.username}
+                        />
 
-                            <FormControl
-                                label="Password"
-                                type="password"
-                                value={this.state.user.password}
-                                handleChange={this.handleChange}
-                                error={this.state.errors?.password}
-                            />
-                            {this.props.errors?.message ?? <><br/><FormFeedback>{this.props.errors?.message}</FormFeedback></>}
-                            <Button color="primary">Login</Button>
-                        </Form>
-                        <Button color="secondary" onClick={this.handleNewRandomUserClick}>Novo usuário aleatório</Button>
-                    </Col>
-                </Row>
+                        <FormControl
+                            label="Password"
+                            type="password"
+                            value={this.state.user.password}
+                            handleChange={this.handleChange}
+                            error={this.state.errors?.password}
+                        />
+                        {this.props.errors?.message ?? <><br/><FormFeedback>{this.props.errors?.message}</FormFeedback></>}
+                        <Button color="primary">Login</Button>
+                    </Form>
+                    <Button color="secondary" onClick={this.handleNewRandomUserClick}>Novo usuário aleatório</Button>
+                </div>
             )
         else
             return (
                 <div id={`user-${this.props.user.id}`}>
                     <p>Olá {this.props.user.name}, você já está logado.</p>
                     <p>Última visita em: {this.props.user.lastVisit?.toString()}</p>
-                    <Row>
-                        <Col md={4}>
-                            <Button onClick={this.handleLogoutClick} color="primary">Sair</Button>     
-                        </Col>
-                    </Row>
+                    <Button onClick={this.handleLogoutClick} color="primary">Sair</Button> 
                 </div>
             )
     }
