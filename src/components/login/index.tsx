@@ -145,7 +145,7 @@ class LoginComponent extends Component<any,AuthState> {
                         {this.props.errors?.message ?? <><br/><FormFeedback>{this.props.errors?.message}</FormFeedback></>}
                         <Button color="primary">Login</Button>
                     </Form>
-                    <Button color="secundary" onClick={this.handleNewRandomUserClick}>Novo usuário aleatório</Button>
+                    <Button color="secondary" onClick={this.handleNewRandomUserClick}>Novo usuário aleatório</Button>
                     {this.props.children}
                 </div>
             )

@@ -8,6 +8,7 @@ import * as actions from '../../store/modules/products/actions';
 import ReactPaginate from 'react-paginate';
 import { Link } from 'react-router-dom';
 import {formatarReal} from '../../utils/functions';
+import config from '../../config';
 
 type Props = props.StateProps & myprops.ProductsProps & myprops.ProductsDispatchProps
 
@@ -24,7 +25,7 @@ class ProductsComponent extends Component<Props> {
                 <ul id="products-list">{data ? data.map(product => (
                     <li key={product._id}>
                         <Link to={`/products/${product._id}`}>
-                            <img src={product.images ? product.images[0] : "http://whatcommasoniclodge.org/wp-content/uploads/2016/12/112815904-stock-vector-no-image-available-icon-flat-vector-illustration.jpg"}/>
+                            <img src={product.images ? product.images[0] : config.NO_IMAGE_DEFAULT}/>
                             <div className="product-content">                                
                                 <span className={"product-price"}>{formatarReal(product.price)}</span>
                                 <p className={"product-title"}>{product.name}</p>
