@@ -6,6 +6,9 @@ import { Redirect } from 'react-router-dom';
 import './styles.css'
 import HomeComponent from '../../components/home';
 
+/**
+ * Página Home. Também lida com redirecionamentos da aplicação.
+ */
 const Home = (values: any) => {    
     const search = values?.location?.search;
     const redirectTo = new URLSearchParams(search).get("redirectTo");

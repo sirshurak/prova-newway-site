@@ -4,6 +4,9 @@ import api from '../../../services/api'
 import {_types} from './types';
 import * as actions from './actions';
 
+/**
+ * Carrega as informações necessárias da API.
+ */
 export function* load(){
     try {     
         let response1 = yield call(api.get, `/product/count`);
@@ -17,6 +20,11 @@ export function* load(){
     }
 }
 
+/**
+ * Utiliza a API de factory.
+ * @param {(user|product)} name nome da API à utilizar o factory.
+ * @param {number} qty quantidade de registros à serem criados.  
+ */
 export function* factory({payload}: ActionType<typeof actions.factory>){
     try {       
         const { data } = yield call(api.get, `/${payload.name}/factory/${payload.qty}`);
@@ -27,6 +35,9 @@ export function* factory({payload}: ActionType<typeof actions.factory>){
     }
 }
 
+/**
+ * Todos os Sagas para o módulo Home.
+ */
 export default all([
     takeLatest(_types.LOAD_HOME_REQUEST, load),
     takeLatest(_types.FACTORY_REQUEST, factory),

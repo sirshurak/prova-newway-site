@@ -3,6 +3,9 @@ import { Container } from './styles';
 import './styles.css';
 import {Cell} from 'styled-css-grid'
 
+/**
+ * Layout do tipo Footer
+ */
 const Footer: React.FC<{}> = ({ children }) => {
     return (
         <Container>

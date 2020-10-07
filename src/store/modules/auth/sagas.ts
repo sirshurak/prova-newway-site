@@ -6,6 +6,11 @@ import config from '../../../config'
 import * as actions from './actions';
 import sha256 from 'js-sha256';
 
+/**
+ * Efetua o login do usuário.
+ * @param {string} email
+ * @param {string} password 
+ */
 export function* login({payload}: ActionType<typeof actions.login>){
     try {       
         const encryptedPassword = sha256.sha256(`${config.PASSWORD_ENCRYPT}${payload.password}`);
@@ -20,6 +25,9 @@ export function* login({payload}: ActionType<typeof actions.login>){
     }
 }
 
+/**
+ * Efetua o logout do usuário atual.
+ */
 export function* logout(action: ActionType<typeof actions.logout>){
     try
     {        
@@ -32,6 +40,12 @@ export function* logout(action: ActionType<typeof actions.logout>){
     }
 }
 
+/**
+ * Cria um novo usuário.
+ * @param {string} name
+ * @param {string} email
+ * @param {string} password 
+ */
 export function* createNewUser({payload}: ActionType<typeof actions.createNewUser>){
     try
     {        
@@ -46,6 +60,9 @@ export function* createNewUser({payload}: ActionType<typeof actions.createNewUse
 }
 
 
+/**
+ * Cria um novo usuário com informações aleatórias.
+ */
 export function* createNewRandomUser(action: ActionType<typeof actions.createNewRandomUser>){
     try
     {        
@@ -57,6 +74,9 @@ export function* createNewRandomUser(action: ActionType<typeof actions.createNew
     }
 }
 
+/**
+ * Todos os Sagas para o módulo Auth.
+ */
 export default all([
     takeLatest(_types.LOAD_LOGIN_REQUEST, login),
     takeLatest(_types.LOAD_LOGOUT_REQUEST, logout),

@@ -7,6 +7,9 @@ import ProductDetails from './pages/products/details';
 import history from './store/history';
 import {Redirect} from 'react-router-dom';
 
+/**
+ * Rotas da aplicação. Toda página acessível deve estar aqui com seu respectivo path.
+ */
 const Routes = () => {
     return (
         <Router history={history}>

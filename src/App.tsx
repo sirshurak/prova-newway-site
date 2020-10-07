@@ -10,6 +10,9 @@ import Routes from './routes';
 import { View } from 'react-native';
 import  './styles.css';
 
+/**
+ * Estrutura do Aplicativo.
+ */
 const App = () => {
     return (
         <Provider store={store}>

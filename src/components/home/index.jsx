@@ -5,6 +5,10 @@ import { bindActionCreators } from 'redux';
 import packageJson from '../../../package.json';
 import { Button } from 'reactstrap'
 
+/**
+ * Componente para página Home.
+ * 
+ */
 class HomeComponent extends Component {
     componentDidMount(){
         this.load(0, 500);
@@ -44,7 +48,7 @@ class HomeComponent extends Component {
     }
 
     addUsers = () => {
-        this.factory("user", 10);
+        this.props.factory("user", 10);
         this.load(500,500);
     }
 

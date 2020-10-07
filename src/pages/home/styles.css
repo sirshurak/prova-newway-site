@@ -1,3 +1,9 @@
+/**
+*
+*   Home
+*
+*/
+
 div#home > .introduction > h1 {
     margin-bottom: 50px;
 }
@@ -7,6 +13,7 @@ div#home > .introduction > p {
     font-weight: 400;
     color: #666;
     font-size: 1.2rem;
+    text-align: center;
 }
 
 div#home > .function {
@@ -15,6 +22,8 @@ div#home > .function {
     padding: 10px;
     margin: 0 auto;
     width: 100%;
+    justify-items: center;
+    margin-top: 30px;
 }
 
 div#home > .function > div > button {
@@ -33,7 +42,7 @@ div#home > .function > .function-product {
     box-sizing: border-box;
     flex-direction: column;
     flex-wrap: nowrap;
-    min-height: 240px;
+    min-height: 190px;
 }
 
 @media (max-width: 1024px){
@@ -41,6 +50,10 @@ div#home > .function > .function-product {
         display: flex;
         flex-direction: column;
         padding: inherit;
+    }
+
+    div#home > .introduction > p {
+        text-align: left;
     }
 
     div#home > .function > .function-user,

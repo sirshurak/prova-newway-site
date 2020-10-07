@@ -12,17 +12,34 @@ import faker from 'faker';
 import { FormFeedback } from 'reactstrap'
 import Rater from 'react-rater';
 import 'react-rater/lib/react-rater.css';
+import { CheckAuthSync } from '../../../contexts/auth';
+import { INITIAL_USER } from '../../../store/modules/auth';
 
+/**
+ * Componente para página de Detalhes de Produto.
+ * @param {number} id id do produto para ser buscado na API.
+ * @param {boolean} isLogged indica se usuário está logado.
+ * @param {User} user dados do usuário.
+ * @param {string} userToken token do usuário.
+ */
 class ProductDetailsComponent extends Component {
 
-    state = {
-        avaliation: {
-            rate: 5,
-            description: "",
-            takeCount: 5,
-            takeLimit: 5
-        },
-        longDescription: faker.lorem.paragraphs(5,"<br/><br/>")
+    constructor(props){
+        super(props)
+
+        const data = CheckAuthSync();
+        this.state = {
+            avaliation: {
+                rate: 5,
+                description: "",
+                takeCount: 5,
+                takeLimit: 5
+            },
+            longDescription: faker.lorem.paragraphs(5,"<br/><br/>"),
+            user: data.user ?? INITIAL_USER,
+            isLogged: data.user?.id !== undefined,
+            userToken: data.token
+        }
     }
 
     loadProduct = () => {
@@ -130,10 +147,8 @@ class ProductDetailsComponent extends Component {
     }
 
     render() {       
-        const {id, isLogged} = this.props;
-        let user = this.props.user; 
-        if (!user?.id)
-            user = this.state.user;
+        const {id} = this.props;
+        const {user, isLogged} = this.state;
         if (this.props.data)
         {
             return (
@@ -192,7 +207,6 @@ class ProductDetailsComponent extends Component {
                             : 
                             <LoginComponent useCallback={
                                 (isLogged, token, data) => {
-                                    console.log(token);
                                     this.setState({isLogged, userToken: token, user: data.user});
                                 }}><p>Efetue login ou crie uma conta para poder avaliar!</p></LoginComponent>
                             } 

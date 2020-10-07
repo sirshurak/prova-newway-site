@@ -9,8 +9,12 @@ export interface ApplicationState<P = {}> {
 
 const sagaMiddlware = createSagaMiddleware();
 
+/**
+ * Store com os reducers, sagas e middleware da aplicação.
+ */
 const store: Store<ApplicationState> = createStore(reducers, applyMiddleware(sagaMiddlware));
 
 sagaMiddlware.run(sagas);
+
 
 export default store;

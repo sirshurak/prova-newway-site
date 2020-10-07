@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Form, Row, Col, Button, FormFeedback } from 'reactstrap'
-
+import { Form, Button, FormFeedback } from 'reactstrap'
 import * as myprops from '../interfaces/auth';
 import * as actions from '../../store/modules/auth/actions';
 import { AuthState } from "../../store/modules/auth/types";
@@ -9,18 +8,34 @@ import { INITIAL_STATE, INITIAL_USER } from "../../store/modules/auth";
 import FormControl from '../commons/FormControl';
 import { bindActionCreators, Dispatch } from 'redux';
 import history from '../../store/history';
-import {CheckAuth} from '../../contexts/auth';
+import {CheckAuth, CheckAuthSync} from '../../contexts/auth';
 import config from '../../config';
+import { callbackLogin } from '../../pages/layout/header/callback';
 
 type Props = myprops.AuthProps & myprops.AuthDispatchProps
 type State = AuthState
 
+/**
+ * Componente de Login.
+ * 
+ * @param {boolean} isLogged indica se usuário está logado
+ * @param {User} user dados do usuário
+ */
 class LoginComponent extends Component<any,AuthState> {
-
-    state = INITIAL_STATE;
-
-    componentDidMount(){
+    constructor(props:any){
+        super(props);
+        
+        const data = CheckAuthSync();
+        this.state = {
+            ...props,
+            user: data.user ?? INITIAL_USER,
+            isLogged: data.user?.id !== undefined,
+            userToken: data.token
+        }
     }
+
+    componentDidMount(){        
+    }    
 
     validate = () => {
         const { user } = this.state;
@@ -38,15 +53,30 @@ class LoginComponent extends Component<any,AuthState> {
         )
         .then(()=> 
             CheckAuth()
-            .then(data => 
-                this.props.errors?.message === undefined 
-                ?
-                    this.props.useCallback !== undefined
-                    ? this.props.useCallback(!(data.user?.id === null), data.token, data)
-                    : history.push(this.props.redirectTo ?? '/')
-                : this.setState({
-                    errors: this.props.errors
-                })
+            .then(data => {
+                if (this.props.errors?.message === undefined) {                
+                    const isLogged = data.user?.id !== undefined;
+                    const user = data.user !== undefined ? data.user : this.state.user;
+                    
+                    this.setState({
+                        isLogged,
+                        userToken: data.token ?? "",
+                        user: {
+                            ...user,
+                            password: ""
+                        }
+                    });
+                    if (this.props.useCallback !== undefined) {
+                        this.props.useCallback(isLogged, data.token, data)
+                    }                    
+                    if (this.props.redirectTo)
+                        history.push(this.props.redirectTo);
+                }
+                else 
+                    this.setState({
+                        errors: this.props.errors
+                    })
+            }
             )
         ); 
     }
@@ -76,16 +106,8 @@ class LoginComponent extends Component<any,AuthState> {
         const errors = this.validate()
 
         if (Object.keys(errors).length === 0) {
-            this.props.login(user.email ?? "", user.password ?? "");
-            
-            if (this.props.errors?.message === undefined)
-            {
-                this.CheckAuthAsync(500);
-            }  
-            else
-                this.setState({
-                    errors: this.props.errors
-                });
+            this.props.login(user.email ?? "", user.password ?? "");            
+            this.CheckAuthAsync(500);
         } else {
             this.setState({
                 errors
@@ -114,13 +136,13 @@ class LoginComponent extends Component<any,AuthState> {
     handleNewRandomUserClick = (e: any) => {
         if (!this.props.isLogged) {
             this.props.createNewRandomUser();
-            if (this.props.errors?.message === undefined)
-                this.CheckNewRandomUserAsync(500);
+            this.CheckNewRandomUserAsync(500);
         }
     }
 
-    render() {
-        const { isLogged } = this.props;
+    render() {        
+        const { isLogged } = this.state;
+        callbackLogin(!isLogged ? "Login" : `Bem vindo, ${this.state.user.name}`);
         if (!isLogged)
             return (
                 <div id="login-form">
@@ -130,7 +152,7 @@ class LoginComponent extends Component<any,AuthState> {
                             type="email"
                             value={this.state.user.email}
                             handleChange={this.handleChange}
-                            error={this.state.errors?.username}
+                            error={this.state.errors?.email}
                             placeholder="Email"
                         />
 
@@ -151,9 +173,10 @@ class LoginComponent extends Component<any,AuthState> {
             )
         else
             return (
-                <div id={`user-${this.props.user.id}`} className="info-usuario">
-                    <p>Olá <b>{this.props.user.name}</b>, você já está logado.</p>
-                    <span>Última visita em: <b>{new Date(this.props.user.lastVisit).toLocaleString()}</b></span>
+                <div id={`user-${this.state.user.id}`} className="info-usuario">
+                    <p>Olá <b>{this.state.user.name}</b>, você está logado.</p>
+                    <span>Email: <b>{this.state.user.email}</b></span>
+                    <span>Última visita em: <b>{new Date(this.state.user.lastVisit??"").toLocaleString()}</b></span>
                     <Button onClick={this.handleLogoutClick} color="primary">Sair</Button> 
                 </div>
             )

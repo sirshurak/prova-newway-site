@@ -4,7 +4,7 @@ import { AuthState, _types } from './types'
 import {User} from '../../../components/models'
 
 export const INITIAL_USER: User = {
-    id: null, //gambiarra porque o React.useContext deve ser tipado os objetos
+    id: null, //gambiarra porque o React.useContext deve ser tipado aos objetos
     name: "",
     email: "",
     password: "",
@@ -24,7 +24,7 @@ export const INITIAL_STATE: AuthState = {
 const reducer: Reducer<AuthState> = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case _types.LOAD_LOGIN_REQUEST:
-            return { ...state, loading: true };
+            return { ...state, loading: true, isLogged: false };
         case _types.LOAD_LOGIN_SUCCESS:
             return { ...state, loading: false, isLogged: true, errors: null, user: action.payload.data.data, userToken: action.payload.data.token};
         case _types.LOAD_LOGIN_FAILURE:

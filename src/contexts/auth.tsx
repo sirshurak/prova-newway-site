@@ -4,11 +4,24 @@ import {User} from '../components/models';
 import {INITIAL_STATE, INITIAL_USER} from '../store/modules/auth';
 import { STORAGE_AUTH_USER, STORAGE_AUTH_TOKEN, AuthState } from '../store/modules/auth/types';
 
+/**
+ * Contexto de autorização, utilizado nos Function Components para conexão ao usuário.
+ */
 const AuthContext = createContext(INITIAL_STATE);
 
+/**
+ * Função para verificar na Storage a informação do usuário e retornando-a.
+ */
 export async function CheckAuth(){
-    const storageUser = await AsyncStorage.getItem(STORAGE_AUTH_USER);
-    const storageToken = await AsyncStorage.getItem(STORAGE_AUTH_TOKEN);
+    return CheckAuthSync();
+}
+
+/**
+ * Função para verificar na Storage a informação do usuário e retornando-a.
+ */
+export function CheckAuthSync(){
+    const storageUser = localStorage.getItem(STORAGE_AUTH_USER);
+    const storageToken = localStorage.getItem(STORAGE_AUTH_TOKEN);
     if (storageUser && storageToken) {
         const aUser = JSON.parse(storageUser);
         let newUser: User = {
@@ -21,9 +34,12 @@ export async function CheckAuth(){
         };
         return { user: newUser, token: storageToken }
     } else 
-        return { user: undefined, token: "" }     
+        return { user: undefined, token: "" }
 }
 
+/**
+ * Provem conexão com o estado do usuário.
+ */
 export const AuthProvider: React.FC<{}> = ({ children }) => {
 
     const [user, setUser] = useState<User>();

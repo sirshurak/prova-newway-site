@@ -1,3 +1,6 @@
+/**
+ * Arquivo de configuração de valores padrão da aplicação. Deve ser preenchido antes de startar a aplicação.
+ */
 export default {
     API_BASEURL: "http://localhost:3001/api",
     PASSWORD_ENCRYPT: "newway",

@@ -1,5 +1,3 @@
-
-
 /**
 *
 *   Login
@@ -91,7 +89,10 @@ div.info-usuario > span {
 
 div.info-usuario > span {
     font-size: 1rem;
-    margin-bottom: 25px;
+}
+
+div.info-usuario > button {
+    margin-top: 25px;
 }
 
 div.invalid-feedback {
