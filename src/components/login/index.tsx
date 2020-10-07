@@ -42,7 +42,7 @@ class LoginComponent extends Component<any,AuthState> {
                 this.props.errors?.message === undefined 
                 ?
                     this.props.useCallback !== undefined
-                    ? this.props.useCallback(!(data.user?.id === null), data)
+                    ? this.props.useCallback(!(data.user?.id === null), data.token, data)
                     : history.push(this.props.redirectTo ?? '/')
                 : this.setState({
                     errors: this.props.errors

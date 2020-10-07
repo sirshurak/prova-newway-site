@@ -40,7 +40,6 @@ const reducer: Reducer<AuthState> = (state = INITIAL_STATE, action) => {
         case _types.CREATE_NEW_RANDOM_USER_REQUEST:
             return { ...state, loading: true };
         case _types.CREATE_NEW_RANDOM_USER_SUCCESS:
-            console.log(action.payload.data);
             return { ...state, loading: false, isLogged: false, errors: null, user: action.payload.data, userToken: ""};
         case _types.CREATE_NEW_RANDOM_USER_FAILURE:
             return { ...state, loading: false, isLogged: false, errors: {message: action.payload.data?.message}, data: []};

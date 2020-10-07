@@ -1,6 +1,7 @@
 import { call, put, all, takeLatest } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import api from '../../../../services/api';
+import { STORAGE_AUTH_USER } from '../../auth/types';
 import * as actions from './actions';
 import {_types} from './types';
 
@@ -15,8 +16,10 @@ export function* loadProductDetail({payload}: ActionType<typeof actions.loadProd
 }
 
 export function* sendProductAvaliation({payload}: ActionType<typeof actions.sendProductAvaliationRequest>){
-    try {        
-        console.log(payload);
+    try {   
+        let userToken = payload.userToken;    
+        if (userToken === "") 
+            userToken = localStorage.getItem(STORAGE_AUTH_USER) ?? "";
         const { data } =  yield call(api.post, 
             `/product/avaliation/${payload.productId}`, 
             { userId: payload.user.id, userName: payload.user.name, rate: payload.rate, description: payload.description },

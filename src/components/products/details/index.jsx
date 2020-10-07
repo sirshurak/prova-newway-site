@@ -29,16 +29,19 @@ class ProductDetailsComponent extends Component {
         const {loadProductRequest, id} = this.props;
 
         loadProductRequest(id);
-        this.loadDefaultImageAsync(500);
+        this.loadDefaultAsync(500);
     }
 
-    async loadDefaultImageAsync(wait) {
+    async loadDefaultAsync(wait) {
         await new Promise(resolve => setTimeout(resolve,wait)).then(() => {
             const imgSelected = this.props.data?.images?.find(x=>x!==undefined) ?? config.NO_IMAGE_DEFAULT;
             this.setState({
                 imgSelected: imgSelected,
                 imgIndex: 0
             });
+
+            if (this.props.errors !== null && this.props.errors !== undefined && Object.keys(this.props.errors).length)
+                history.push('/products'); //404 not found
         });
     }
 
@@ -62,7 +65,8 @@ class ProductDetailsComponent extends Component {
 
     handleAvaliationSubmit = (e) => {       
         const {rate, description} = this.state.avaliation;
-        const {userToken, user} = this.props;
+        const userToken = this.props.userToken !== "" ? this.props.userToken : this.state.userToken;
+        const user = this.props.user?.id === null ? this.state.user : this.props.user;
         const errors = this.validateAvaliation();
         
         if (Object.keys(errors.avaliation).length === 0) {
@@ -70,7 +74,10 @@ class ProductDetailsComponent extends Component {
             
             if (this.props.errors?.message === undefined)
             {
+                this.loadProductAsync(500);
+
                 this.setState({
+                    ...this.state,
                     avaliation: {
                         ...this.state.avaliation,
                         rate: 5,
@@ -80,10 +87,12 @@ class ProductDetailsComponent extends Component {
             }
             else
                 this.setState({
+                    ...this.state,
                     errors: this.props.errors
                 });
         } else {
             this.setState({
+                ...this.state,
                 errors
             })
         }
@@ -174,16 +183,26 @@ class ProductDetailsComponent extends Component {
                                 <Form>
                                     <Rater onRate={this.changeAvaliationRate} rating={this.state.avaliation.rate}/>
                                     <FormFeedback>{this.state.errors?.avaliation?.rate}</FormFeedback>
-                                    <textarea id="description" rows="10" cols="30" onChange={this.handleChangeAvalation} defaultValue={this.state.avaliation.description}></textarea>
+                                    <textarea id="description" rows="10" cols="30" onChange={this.handleChangeAvalation} value={this.state.avaliation.description}></textarea>
                                     <p>{this.state.errors?.avaliation?.description}</p>
                                     <p>{this.state.errors?.message}</p>
                                     <Button color="primary" onClick={this.handleAvaliationSubmit}>Avaliar</Button>
                                 </Form>
                             </div> 
                             : 
-                            <LoginComponent useCallback={(isLogged, data) => this.setState({isLogged, user: data.user})}><p>Efetue login ou crie uma conta para poder avaliar!</p></LoginComponent>
+                            <LoginComponent useCallback={
+                                (isLogged, token, data) => {
+                                    console.log(token);
+                                    this.setState({isLogged, userToken: token, user: data.user});
+                                }}><p>Efetue login ou crie uma conta para poder avaliar!</p></LoginComponent>
                             } 
-                            <h3>Mais recentes</h3>
+                            {
+                                this.props.data?.avaliations?.length > 0 
+                                ? <h3>Mais recentes</h3>
+                                : isLogged 
+                                    ? <h3>Seja o primeiro a avaliar!</h3>
+                                    : <h3>Nenhuma avaliação</h3>
+                            }
                             <ul id="avaliations">
                             {
                                 this.props.data?.avaliations?.sort((a, b) => {return new Date(b.date) - new Date(a.date);})

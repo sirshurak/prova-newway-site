@@ -17,6 +17,10 @@ div#home > .function {
     width: 100%;
 }
 
+div#home > .function > div > button {
+    margin-top: 30px;
+}
+
 div#home > .function > .function-user,
 div#home > .function > .function-product {
     border: 1px solid rgba(0,0,0,.1);
@@ -29,7 +33,7 @@ div#home > .function > .function-product {
     box-sizing: border-box;
     flex-direction: column;
     flex-wrap: nowrap;
-    min-height: 340px;
+    min-height: 240px;
 }
 
 @media (max-width: 1024px){
