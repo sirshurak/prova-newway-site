@@ -1,0 +1,14 @@
+ #content {   
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 1000px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    z-index: -1;
+ }
+
+@media (max-width: 1024px) {
+    #content {
+        margin: 0px;
+    }
+}

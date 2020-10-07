@@ -1,4 +1,4 @@
-import { call, put, all, takeLatest, join } from 'redux-saga/effects';
+import { call, put, all, takeLatest } from 'redux-saga/effects';
 import { ActionType, action } from 'typesafe-actions';
 import api from '../../../services/api'
 import {_types, STORAGE_AUTH_USER, STORAGE_AUTH_TOKEN} from './types';

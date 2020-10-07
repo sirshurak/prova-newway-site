@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from './styles';
+import './styles.css';
 import {Cell} from 'styled-css-grid'
 
 const Footer: React.FC<{}> = ({ children }) => {
@@ -7,7 +8,7 @@ const Footer: React.FC<{}> = ({ children }) => {
         <Container>
             <footer>
                 <div id="footer">
-                    <h3>Prova solucionada por Vinicius Tonelli</h3>
+                    <h3>Prova solucionada por <a href="https://github.com/sirshurak" target="_blank">Vinicius Tonelli</a></h3>
                     {children}
                 </div>
             </footer>

@@ -1,0 +1,20 @@
+div #footer{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+div #footer a {
+    text-decoration: underline;
+    color: white;
+}
+
+div #footer > h3 {
+    color: white;
+    margin-left: 40px;
+}
+
+@media (max-width: 1024px) {
+    div #footer {
+        display: none;
+    }
+}

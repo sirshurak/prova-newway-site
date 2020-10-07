@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import { Container } from './styles';
 import LoginComponent from '../../../components/login';
 import AuthContext from '../../../contexts/auth';
+import './styles.css'
 
 const Login = () => {
     const props = React.useContext(AuthContext);

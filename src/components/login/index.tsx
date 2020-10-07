@@ -142,18 +142,18 @@ class LoginComponent extends Component<any,AuthState> {
                             error={this.state.errors?.password}
                             placeholder="senha"
                         />
-                        {this.props.errors?.message ?? <><br/><FormFeedback>{this.props.errors?.message}</FormFeedback></>}
+                        <><br/><FormFeedback>{this.props.errors?.message}</FormFeedback></>
                         <Button color="primary">Login</Button>
+                        <Button color="secondary" onClick={this.handleNewRandomUserClick}>Novo usuário aleatório</Button>
                     </Form>
-                    <Button color="secondary" onClick={this.handleNewRandomUserClick}>Novo usuário aleatório</Button>
                     {this.props.children}
                 </div>
             )
         else
             return (
                 <div id={`user-${this.props.user.id}`} className="info-usuario">
-                    <p>Olá {this.props.user.name}, você já está logado.</p>
-                    <p>Última visita em: {this.props.user.lastVisit?.toString()}</p>
+                    <p>Olá <b>{this.props.user.name}</b>, você já está logado.</p>
+                    <span>Última visita em: <b>{new Date(this.props.user.lastVisit).toLocaleString()}</b></span>
                     <Button onClick={this.handleLogoutClick} color="primary">Sair</Button> 
                 </div>
             )

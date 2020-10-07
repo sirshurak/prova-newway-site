@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from './styles';
+import './styles.css'
 import ProductDetailsComponent from '../../../components/products/details/index.jsx';
 import AuthContext from '../../../contexts/auth';
 

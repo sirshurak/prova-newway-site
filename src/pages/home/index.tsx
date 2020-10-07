@@ -3,6 +3,8 @@ import { Container } from './styles';
 import Auth from '../partials/login';
 import { AuthProvider } from '../../contexts/auth';
 import { Redirect } from 'react-router-dom';
+import './styles.css'
+import HomeComponent from '../../components/home';
 
 const Home = (values: any) => {    
     const search = values?.location?.search;
@@ -11,7 +13,7 @@ const Home = (values: any) => {
         <>
         {redirectTo ? <Redirect to={redirectTo} /> : <></>}
         <Container>
-            <div id="home"></div>
+            <HomeComponent/>
         </Container>
         </>
     )

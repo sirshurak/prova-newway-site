@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from './styles';
+import './styles.css'
 import ProductsComponent from '../../components/products';
 
 const Products = () => {

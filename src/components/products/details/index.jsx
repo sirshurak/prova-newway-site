@@ -54,8 +54,8 @@ class ProductDetailsComponent extends Component {
         const { avaliation } = this.state;
         const errors = {avaliation: {}};
 
-        if (avaliation.rate <= 0) errors.avaliation.rate = 'Rate não pode ser vazio.'
-        if (avaliation.description === '') errors.avaliation.description = 'Descrição não pode ser vazio.'
+        if (avaliation.rate <= 0) errors.avaliation.rate = 'Você deve informar a quantidade de estrelas.'
+        if (avaliation.description === '') errors.avaliation.description = 'A Descrição não pode ser vazio.'
 
         return errors
     }
@@ -170,18 +170,18 @@ class ProductDetailsComponent extends Component {
                             {
                             isLogged || this.state.isLogged ? 
                             <div id="send-avaliation">
-                                <h3>{user.name}, nos envie sua avaliação!</h3>
-                                <Form onSubmit={this.handleAvaliationSubmit}>
+                                <h3>{user?.name}, nos envie sua avaliação!</h3>
+                                <Form>
                                     <Rater onRate={this.changeAvaliationRate} rating={this.state.avaliation.rate}/>
                                     <FormFeedback>{this.state.errors?.avaliation?.rate}</FormFeedback>
                                     <textarea id="description" rows="10" cols="30" onChange={this.handleChangeAvalation} defaultValue={this.state.avaliation.description}></textarea>
                                     <p>{this.state.errors?.avaliation?.description}</p>
                                     <p>{this.state.errors?.message}</p>
-                                    <Button color="primary">Avaliar</Button>
+                                    <Button color="primary" onClick={this.handleAvaliationSubmit}>Avaliar</Button>
                                 </Form>
                             </div> 
                             : 
-                            <><p>Efetue login ou crie uma conta para poder avaliar!</p><LoginComponent useCallback={(isLogged, data) => this.setState({isLogged, user: data.user})}/></>
+                            <LoginComponent useCallback={(isLogged, data) => this.setState({isLogged, user: data.user})}><p>Efetue login ou crie uma conta para poder avaliar!</p></LoginComponent>
                             } 
                             <h3>Mais recentes</h3>
                             <ul id="avaliations">
@@ -204,7 +204,7 @@ class ProductDetailsComponent extends Component {
                             </ul>
                             {
                                 this.props.data?.avaliations?.length && (this.state.avaliation.takeCount <= this.props.data?.avaliations?.length)
-                                ? <Button color="secondary" onClick={() => { this.setState({...this.state, avaliation: {...this.state.avaliation, takeCount: this.state.avaliation.takeCount+this.state.avaliation.takeLimit }}) }}>Carregar Mais</Button>
+                                ? <Button color="secondary" onClick={() => { this.setState({...this.state, avaliation: {...this.state.avaliation, takeCount: this.state.avaliation.takeCount+this.state.avaliation.takeLimit }}) }}>Mais Avaliações</Button>
                                 : <></>
                             }
                         </div>
