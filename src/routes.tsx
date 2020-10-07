@@ -5,7 +5,6 @@ import Login from './pages/partials/login';
 import Products from './pages/products';
 import ProductDetails from './pages/products/details';
 import history from './store/history';
-import {Redirect} from 'react-router-dom';
 
 /**
  * Rotas da aplicação. Toda página acessível deve estar aqui com seu respectivo path.

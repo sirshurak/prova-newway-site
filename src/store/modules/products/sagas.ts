@@ -12,7 +12,6 @@ import * as actions from './actions';
 export function* loadProducts({payload}: ActionType<typeof actions.loadProductsRequest>){
     try {      
         const { data } =  yield call(api.get, `/product?limit=${payload.limit}&offset=${payload.offset}`);
-        console.log(data);
         yield put(actions.loadProductsSuccess(data));
     }
     catch(error){

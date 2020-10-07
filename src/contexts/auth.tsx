@@ -1,8 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
 import {User} from '../components/models';
 import {INITIAL_STATE, INITIAL_USER} from '../store/modules/auth';
-import { STORAGE_AUTH_USER, STORAGE_AUTH_TOKEN, AuthState } from '../store/modules/auth/types';
+import { STORAGE_AUTH_USER, STORAGE_AUTH_TOKEN } from '../store/modules/auth/types';
 
 /**
  * Contexto de autorização, utilizado nos Function Components para conexão ao usuário.

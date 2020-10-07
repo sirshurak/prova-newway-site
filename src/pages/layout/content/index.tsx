@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container } from './styles';
-import {Cell} from 'styled-css-grid'
 import './styles.css'
 
 /**

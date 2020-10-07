@@ -27,6 +27,10 @@ export interface PayloadState {
     readonly userToken: String
 }
 
+export class KeyValuePair {
+    [key: string]: string
+}
+
 export interface PayloadDataState<P> extends PayloadState   {
       readonly data: P[] 
 }

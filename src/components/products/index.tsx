@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux'
-import { ApplicationState } from '../../store'
 import * as props from '../interfaces/props';
 import * as myprops from '../interfaces/product';
 import * as actions from '../../store/modules/products/actions';
@@ -20,11 +19,6 @@ type Props = props.StateProps & myprops.ProductsProps & myprops.ProductsDispatch
  * @param {number} offset registros à ignorar 
  */
 class ProductsComponent extends Component<Props, any> {
-    constructor(props: Props) {
-        super(props);
-
-        console.log("construiu");
-    }
 
     state = INITIAL_STATE;
 
@@ -59,13 +53,12 @@ class ProductsComponent extends Component<Props, any> {
 
     render() {       
         const { data, total, limit, offset } = this.state;
-        console.log(this.state);
         return (
             <div id="products">
                 <ul id="products-list">{data ? data.map((product: Product) => (
                     <li key={product._id}>
                         <Link to={`/products/${product._id}`}>
-                            <img src={product.images ? product.images[0] : config.NO_IMAGE_DEFAULT}/>
+                            <img src={product.images ? product.images[0] : config.NO_IMAGE_DEFAULT} alt=""/>
                             <div className="product-content">                                
                                 <span className={"product-price"}>{formatarReal(product.price)}</span>
                                 <p className={"product-title"}>{product.name}</p>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Text} from 'react-native'
-import { bindActionCreators, Dispatch } from 'redux'
+import { bindActionCreators } from 'redux'
 import * as actions from '../../../store/modules/products/details/actions';
 import history from '../../../store/history';
 import { Button, Form } from 'reactstrap'
@@ -83,7 +83,7 @@ class ProductDetailsComponent extends Component {
     handleAvaliationSubmit = (e) => {       
         const {rate, description} = this.state.avaliation;
         const userToken = this.props.userToken !== "" ? this.props.userToken : this.state.userToken;
-        const user = this.props.user?.id === null ? this.state.user : this.props.user;
+        const user = this.state.user?.id === null ? this.props.user : this.state.user;
         const errors = this.validateAvaliation();
         
         if (Object.keys(errors.avaliation).length === 0) {
@@ -157,11 +157,11 @@ class ProductDetailsComponent extends Component {
                     <div className="product-detail-column-left">
                         <div className="product-detail-gallery">
                             <div className="gallery-selected">
-                                <img src={this.state.imgSelected}/>
+                                <img src={this.state.imgSelected} alt=""/>
                             </div>
                             <div className="gallery-miniatures">
-                                {this.props.data?.images?.map((image, index) => <div className={`miniature ${index === this.state.imgIndex ? 'active' : ''}`} key={index} onClick={() => this.changeGallerySelected(index)}><img src={image}/></div>)}
-                                {this.props.data?.images?.length <= 0 ? <div className={`miniature active`}><img src={config.NO_IMAGE_DEFAULT}/></div> : <></>}                                                                             
+                                {this.props.data?.images?.map((image, index) => <div className={`miniature ${index === this.state.imgIndex ? 'active' : ''}`} key={index} onClick={() => this.changeGallerySelected(index)}><img src={image} alt=""/></div>)}
+                                {this.props.data?.images?.length <= 0 ? <div className={`miniature active`}><img src={config.NO_IMAGE_DEFAULT} alt=""/></div> : <></>}                                                                             
                             </div>
                         </div>                        
                     </div> 
@@ -206,8 +206,8 @@ class ProductDetailsComponent extends Component {
                             </div> 
                             : 
                             <LoginComponent useCallback={
-                                (isLogged, token, data) => {
-                                    this.setState({isLogged, userToken: token, user: data.user});
+                                (isLogged, token, user) => {
+                                    this.setState({isLogged, userToken: token, user});
                                 }}><p>Efetue login ou crie uma conta para poder avaliar!</p></LoginComponent>
                             } 
                             {

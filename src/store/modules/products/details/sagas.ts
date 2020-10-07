@@ -32,7 +32,7 @@ export function* sendProductAvaliation({payload}: ActionType<typeof actions.send
         let userToken = payload.userToken;    
         if (userToken === "") 
             userToken = localStorage.getItem(STORAGE_AUTH_USER) ?? "";
-        const { data } =  yield call(api.post, 
+        yield call(api.post, 
             `/product/avaliation/${payload.productId}`, 
             { userId: payload.user.id, userName: payload.user.name, rate: payload.rate, description: payload.description },
             { 

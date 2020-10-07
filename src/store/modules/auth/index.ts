@@ -1,4 +1,3 @@
-import userEvent from '@testing-library/user-event';
 import { Reducer } from 'redux';
 import { AuthState, _types } from './types'
 import {User} from '../../../components/models'

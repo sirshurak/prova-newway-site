@@ -1,4 +1,4 @@
-import { all, takeLatest } from 'redux-saga/effects';
+import { all } from 'redux-saga/effects';
 import products from './products/sagas';
 import auth from './auth/sagas';
 import productDetails from './products/details/sagas';

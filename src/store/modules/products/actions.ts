@@ -1,5 +1,5 @@
 import { action } from 'typesafe-actions';
-import { Product, ProductState, _types } from './types';
+import { Product, _types } from './types';
 
 export const loadProductsRequest = (offset: number, limit: number) => action(_types.LOAD_PRODUCTS_REQUEST, {offset, limit});
 

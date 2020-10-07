@@ -1,7 +1,5 @@
 import React from 'react';
 import { Container } from './styles';
-import Auth from '../partials/login';
-import { AuthProvider } from '../../contexts/auth';
 import { Redirect } from 'react-router-dom';
 import './styles.css'
 import HomeComponent from '../../components/home';

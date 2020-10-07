@@ -1,6 +1,5 @@
 import { Reducer } from 'redux';
 import { ProductState, _types } from './types';
-import {PAYLOAD_INITIAL_STATE} from '../payload'
 
 export const INITIAL_STATE: ProductState = {
     data: [],

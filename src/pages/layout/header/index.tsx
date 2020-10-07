@@ -19,7 +19,7 @@ const Header: React.FC<{}> = ({ children }) => {
                 <div id="header">
                     <Router history={history}>
                         <Navbar 
-                            logo={<Link to="/"><img width={207} height={45} src={"https://www.gruponewway.com.br/wp-content/uploads/2019/06/logotipo-newway-branco.png"} className={"attachment-large size-large"}/></Link>}
+                            logo={<Link to="/"><img alt="" width={207} height={45} src={"https://www.gruponewway.com.br/wp-content/uploads/2019/06/logotipo-newway-branco.png"} className={"attachment-large size-large"}/></Link>}
                             items={[
                             {
                                 title: 'Home',

@@ -4,7 +4,8 @@ import { Form, Button, FormFeedback } from 'reactstrap'
 import * as myprops from '../interfaces/auth';
 import * as actions from '../../store/modules/auth/actions';
 import { AuthState } from "../../store/modules/auth/types";
-import { INITIAL_STATE, INITIAL_USER } from "../../store/modules/auth";
+import {KeyValuePair} from '../../store/modules/payload/types';
+import { INITIAL_USER } from "../../store/modules/auth";
 import FormControl from '../commons/FormControl';
 import { bindActionCreators, Dispatch } from 'redux';
 import history from '../../store/history';
@@ -56,7 +57,7 @@ class LoginComponent extends Component<any,AuthState> {
             .then(data => {
                 if (this.props.errors?.message === undefined) {                
                     const isLogged = data.user?.id !== undefined;
-                    const user = data.user !== undefined ? data.user : this.state.user;
+                    const user = data.user !== undefined && isLogged ? data.user : this.state.user;
                     
                     this.setState({
                         isLogged,
@@ -67,15 +68,11 @@ class LoginComponent extends Component<any,AuthState> {
                         }
                     });
                     if (this.props.useCallback !== undefined) {
-                        this.props.useCallback(isLogged, data.token, data)
+                        this.props.useCallback(isLogged, data.token, user)
                     }                    
                     if (this.props.redirectTo)
                         history.push(this.props.redirectTo);
                 }
-                else 
-                    this.setState({
-                        errors: this.props.errors
-                    })
             }
             )
         ); 
@@ -152,7 +149,6 @@ class LoginComponent extends Component<any,AuthState> {
                             type="email"
                             value={this.state.user.email}
                             handleChange={this.handleChange}
-                            error={this.state.errors?.email}
                             placeholder="Email"
                         />
 
@@ -161,10 +157,35 @@ class LoginComponent extends Component<any,AuthState> {
                             type="password"
                             value={this.state.user.password}
                             handleChange={this.handleChange}
-                            error={this.state.errors?.password}
                             placeholder="senha"
                         />
-                        <><br/><FormFeedback>{this.props.errors?.message}</FormFeedback></>
+                        {
+                            Object.keys(this.props.errors??"").length > 0 
+                            ? Object.keys(this.props.errors).map(key => 
+                                this.props.errors[key] !== ""
+                                ?   <div key={key}>
+                                        <br/>
+                                        <FormFeedback>{this.props.errors[key]}</FormFeedback>
+                                    </div>
+                                : <></>
+                                ) 
+                            : <></>
+                        }
+                        {
+                            Object.keys(this.state.errors??"").length > 0 
+                            ? Object.keys(this.state.errors??"").map(key => {
+                                const keyValue = (this.state.errors??new KeyValuePair());
+                                if (keyValue[key] !== "")                                    
+                                    return (
+                                        <div key={key}>
+                                            <br/>
+                                            <FormFeedback>{keyValue[key]}</FormFeedback>
+                                        </div>
+                                    )
+                                return <></>
+                                }) 
+                            : <></>
+                        }
                         <Button color="primary">Login</Button>
                         <Button color="secondary" onClick={this.handleNewRandomUserClick}>Novo usuário aleatório</Button>
                     </Form>
